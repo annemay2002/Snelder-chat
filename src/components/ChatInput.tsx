@@ -25,21 +25,38 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-gray-200 p-4">
+    <form onSubmit={handleSubmit} className="border-t border-gray-200 p-4 bg-white">
       <div className="flex gap-2">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Typ je bericht..."
-          className="flex-1 resize-none border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="flex-1 resize-none border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:border-transparent font-opensans"
+          style={{ 
+            focusRingColor: '#FF7F32',
+            color: '#1F1F1F'
+          }}
           rows={1}
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={!message.trim() || isLoading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center min-w-[48px]"
+          className="text-white px-4 py-2 rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center min-w-[48px] font-montserrat font-semibold transition-colors"
+          style={{ 
+            backgroundColor: '#FF7F32',
+          }}
+          onMouseEnter={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.backgroundColor = '#E6722D';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.backgroundColor = '#FF7F32';
+            }
+          }}
         >
           {isLoading ? (
             <Loader2 className="w-4 h-4 animate-spin" />
