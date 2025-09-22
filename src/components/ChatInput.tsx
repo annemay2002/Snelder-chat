@@ -25,21 +25,21 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-gray-200 p-4 bg-white shadow-lg">
-      <div className="flex gap-2">
+    <form onSubmit={handleSubmit} className="border-t border-gray-200 p-6 bg-white">
+      <div className="flex gap-3">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Typ je bericht..."
-          className="flex-1 resize-none border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-snelder-orange focus:border-transparent font-opensans text-snelder-text placeholder-gray-400"
+          className="flex-1 resize-none border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-snelder-orange focus:border-transparent font-opensans text-snelder-text placeholder-gray-400 shadow-sm"
           rows={1}
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={!message.trim() || isLoading}
-          className="bg-snelder-orange hover:bg-orange-600 text-white px-4 py-3 rounded-xl disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center min-w-[48px] font-montserrat font-semibold transition-colors shadow-sm"
+          className="bg-snelder-orange hover:bg-orange-600 text-white px-5 py-3 rounded-xl disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center min-w-[52px] font-montserrat font-semibold transition-colors shadow-sm"
         >
           {isLoading ? (
             <Loader2 className="w-4 h-4 animate-spin" />
