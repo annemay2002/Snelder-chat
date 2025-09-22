@@ -9,39 +9,47 @@ interface ChatMessageProps {
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAssistant, timestamp }) => {
   return (
-    <div className={`flex gap-3 py-4 ${isAssistant ? 'justify-start' : 'justify-end'}`}>
-      {isAssistant && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-snelder-blue flex items-center justify-center">
+    <div className={`flex items-start gap-3 ${isAssistant ? '' : 'flex-row-reverse'}`}>
+      {/* Avatar */}
+      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+        isAssistant 
+          ? 'bg-snelder-blue' 
+          : 'bg-snelder-orange'
+      }`}>
+        {isAssistant ? (
           <img 
-            src="/snelder-logo.png" 
-            alt="Snelder" 
-            className="w-5 h-5 object-contain brightness-0 invert"
+            src="/OIP.jpeg" 
+            alt="SnelderBot" 
+            className="w-4 h-4 object-contain brightness-0 invert"
           />
-        </div>
-      )}
+        ) : (
+          <User className="w-4 h-4 text-white" />
+        )}
+      </div>
       
-      <div className={`max-w-sm lg:max-w-md ${isAssistant ? 'order-2' : 'order-1'}`}>
+      {/* Message Bubble */}
+      <div className={`max-w-xs ${isAssistant ? '' : 'text-right'}`}>
         <div className={`rounded-2xl px-4 py-3 ${
           isAssistant 
-            ? 'bg-snelder-blue text-white rounded-bl-md' 
-            : 'bg-snelder-gray text-snelder-text rounded-br-md'
+            ? 'bg-snelder-blue text-white rounded-tl-sm' 
+            : 'bg-snelder-gray text-snelder-text rounded-tr-sm'
         }`}>
-          <div className="whitespace-pre-wrap break-words font-opensans text-sm leading-relaxed">
+          <div className={`whitespace-pre-wrap break-words leading-relaxed ${
+            isAssistant 
+              ? 'font-opensans text-base' 
+              : 'font-opensans text-sm'
+          }`}>
             {message}
           </div>
         </div>
-        <div className={`flex items-center gap-2 mt-2 px-1 ${isAssistant ? 'justify-start' : 'justify-end'}`}>
+        
+        {/* Timestamp */}
+        <div className={`mt-1 px-1 ${isAssistant ? 'text-left' : 'text-right'}`}>
           <span className="text-xs text-gray-400 font-opensans">
             {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </span>
         </div>
       </div>
-
-      {!isAssistant && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-snelder-gray flex items-center justify-center order-2">
-          <User className="w-4 h-4 text-snelder-blue" />
-        </div>
-      )}
     </div>
   );
 };
