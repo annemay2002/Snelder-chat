@@ -9,40 +9,42 @@ interface ChatMessageProps {
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAssistant, timestamp }) => {
   return (
-    <div className={`flex gap-3 p-4 ${isAssistant ? '' : 'bg-white'}`} 
-         style={isAssistant ? { backgroundColor: '#1F4E79' } : {}}>
-      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-        isAssistant ? 'bg-white' : ''
-      }`} style={!isAssistant ? { backgroundColor: '#F4F4F4' } : {}}>
-        {isAssistant ? (
+    <div className={`flex gap-3 p-4 ${isAssistant ? 'justify-start' : 'justify-end'}`}>
+      {isAssistant && (
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
           <img 
             src="/OIP.jpeg" 
             alt="Snelder" 
             className="w-6 h-6 object-contain"
           />
-        ) : (
-          <User className="w-5 h-5" style={{ color: '#1F4E79' }} />
-        )}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
-          <span className={`text-sm font-medium font-montserrat ${
-            isAssistant ? 'text-white' : 'text-gray-900'
-          }`}>
+        </div>
+      )}
+      
+      <div className={`max-w-xs lg:max-w-md xl:max-w-lg ${isAssistant ? 'order-2' : 'order-1'}`}>
+        <div className={`rounded-2xl px-4 py-3 shadow-sm ${
+          isAssistant 
+            ? 'bg-snelder-blue text-white rounded-bl-sm' 
+            : 'bg-snelder-gray text-snelder-text rounded-br-sm'
+        }`}>
+          <div className="whitespace-pre-wrap break-words font-opensans text-sm leading-relaxed">
+            {message}
+          </div>
+        </div>
+        <div className={`flex items-center gap-2 mt-1 px-2 ${isAssistant ? 'justify-start' : 'justify-end'}`}>
+          <span className="text-xs text-gray-500 font-opensans">
             {isAssistant ? 'Snelder Assistant' : 'Jij'}
           </span>
-          <span className={`text-xs font-opensans ${
-            isAssistant ? 'text-gray-200' : 'text-gray-500'
-          }`}>
-            {timestamp.toLocaleTimeString()}
+          <span className="text-xs text-gray-400 font-opensans">
+            {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </span>
         </div>
-        <div className={`whitespace-pre-wrap break-words font-opensans ${
-          isAssistant ? 'text-white' : ''
-        }`} style={!isAssistant ? { color: '#1F1F1F' } : {}}>
-          {message}
-        </div>
       </div>
+
+      {!isAssistant && (
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-snelder-gray flex items-center justify-center order-2">
+          <User className="w-5 h-5 text-snelder-blue" />
+        </div>
+      )}
     </div>
   );
 };
